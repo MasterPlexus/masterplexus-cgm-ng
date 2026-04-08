@@ -20,9 +20,11 @@ static StatusBarElement *s_status_bar_element = NULL;
 static BGRowElement *s_bg_row_element = NULL;
 
 static void minute_handler(struct tm *tick_time, TimeUnits units_changed) {
-//  if (s_time_element != NULL) {
-//    time_element_tick(s_time_element);
-//  }
+  if ( !get_prefs()->include_seconds ) {
+    if (s_time_element != NULL) {
+      time_element_tick(s_time_element);
+    }
+  }
   if (s_graph_element != NULL) {
     graph_element_tick(s_graph_element);
   }
@@ -69,8 +71,8 @@ static void window_load(Window *window) {
     s_bg_row_element = bg_row_element_create(layout.bg_row);
   }
 
-  tick_timer_service_subscribe(SECOND_UNIT, second_handler);
-//  tick_timer_service_subscribe(MINUTE_UNIT, minute_handler);
+  if ( get_prefs()->include_seconds )  tick_timer_service_subscribe(SECOND_UNIT, second_handler);
+  else tick_timer_service_subscribe(MINUTE_UNIT, minute_handler);
 }
 
 static void window_unload(Window *window) {

@@ -70,7 +70,8 @@
       "colors": 26,
       "statusMinRecencyToShowMinutes": 27,
       "statusMaxAgeMinutes": 28,
-      "statusRecencyFormat": 29
+      "statusRecencyFormat": 29,
+      "includeSeconds" : 30
     },
     "resources": {
       "media": [

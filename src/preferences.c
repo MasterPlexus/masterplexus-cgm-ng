@@ -105,5 +105,6 @@ void set_prefs(DictionaryIterator *data) {
 
   decode_colors(s_prefs, dict_find(data, MESSAGE_KEY_colors)->value->data);
 
+  s_prefs->include_seconds = get_int32(data, MESSAGE_KEY_includeSeconds);
   save_prefs();
 }

@@ -677,6 +677,8 @@
 
     customLayout = current['customLayout'];
     decodeLayout(current['layout']);
+
+    $('[name=includeSeconds]').prop('checked', !!current['includeSeconds']);
   }
 
   function buildConfig() {
@@ -719,6 +721,7 @@
       layout: $('[name=layout].active').attr('value'),
       advancedLayout: $('[name=advancedLayout]').is(':checked'),
       customLayout: customLayout,
+      includeSeconds: $('[name=includeSeconds]').is(':checked'),
     };
     encodeSliders(out, MAIN_SLIDER_KEYS);
     encodePointConfig(out);

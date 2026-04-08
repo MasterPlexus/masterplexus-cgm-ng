@@ -113,15 +113,18 @@ void time_element_update(TimeElement *el, DataMessage *data) {
 void time_element_second_tick(TimeElement *el, struct tm* tick_time) {
   static char buffer[16];
 
-  int hr = clock_is_24h_style() ? tick_time->tm_hour : (tick_time->tm_hour > 12 ? tick_time->tm_hour - 12 : 0);
+  int hr = clock_is_24h_style() ? tick_time->tm_hour : (tick_time->tm_hour > 12 ? tick_time->tm_hour - 12 : (tick_time->tm_hour == 0 ? 12 : tick_time->tm_hour));
 
-  if ( !clock_is_24h_style() ) {
-    
+  if (get_prefs()->include_seconds) {
+    snprintf (buffer, sizeof(buffer), "%d:%02d:%02d", hr, tick_time->tm_min, tick_time->tm_sec);
+    if (hr > 10) buffer[8]= 0;
+    else buffer[7] = 0;
+  }
+  else {
+    snprintf (buffer, sizeof(buffer), "%02d:%02d", hr, tick_time->tm_min);
+    buffer[5] = 0;
   }
 
-  snprintf (buffer, sizeof(buffer), "%02d:%02d:%02d", hr, tick_time->tm_min, tick_time->tm_sec);
-
-  buffer[8]= 0;
   /*
 
 #ifdef IS_TEST_BUILD

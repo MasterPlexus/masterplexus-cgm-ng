@@ -5,7 +5,7 @@
 #define PERSIST_KEY_VERSION 0
 #define PERSIST_KEY_PREFERENCES_OBJECT 1
 
-#define PREFERENCES_SCHEMA_VERSION 14
+#define PREFERENCES_SCHEMA_VERSION 15
 
 enum {
   ALIGN_LEFT,
@@ -138,6 +138,7 @@ typedef struct __attribute__((__packed__)) Preferences {
   uint8_t status_min_recency_to_show_minutes;
   uint16_t status_max_age_minutes;
   unsigned int status_recency_format:3;
+  bool include_seconds;
 } Preferences;
 
 void init_prefs();

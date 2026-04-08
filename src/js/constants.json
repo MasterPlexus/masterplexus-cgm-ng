@@ -1,5 +1,5 @@
 {
-   "VERSION" : "0.0.14",
+   "VERSION" : "0.0.15",
 
    "DEBUG": false,
    "DEV_CONFIG_URL": "",
@@ -74,7 +74,8 @@
          "recencyStyle" : "mediumRing",
          "recencyColorCircle" : "0x55AA55",
          "recencyColorText" : "0x000000"
-      }
+      },
+      "includeSeconds" : true
    },
 
    "LAYOUTS": {
