@@ -1,6 +1,6 @@
 {
-  "name": "urchin-cgm",
-  "author": "Mark Wilson",
+  "name": "urchin-cgm-second",
+  "author": "Daniel Binkis",
   "version": "0.1.0",
   "keywords": ["pebble-app"],
   "private": true,
@@ -10,8 +10,8 @@
     "uglify-js": "~2.7.3"
   },
   "pebble": {
-    "displayName": "Urchin CGM",
-    "uuid": "ea361603-0373-4865-9824-8f52c65c6e07",
+    "displayName": "Urchin CGM Second Hand",
+    "uuid": "ea361603-0373-4865-9824-8f52c65c6e08",
     "projectType": "native",
     "sdkVersion": "3",
     "enableMultiJS": true,

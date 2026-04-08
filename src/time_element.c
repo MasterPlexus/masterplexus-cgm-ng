@@ -63,7 +63,7 @@ static RecencyComponent *create_recency_component(Layer *parent, uint8_t recency
 }
 
 static uint8_t choose_font_for_height(uint8_t height) {
-  uint8_t choices[] = {FONT_42_BOLD, FONT_34_NUMBERS, FONT_28_BOLD, FONT_24_BOLD, FONT_18_BOLD};
+  uint8_t choices[] = {FONT_34_NUMBERS, FONT_28_BOLD, FONT_24_BOLD, FONT_18_BOLD};
   for(uint8_t i = 0; i < ARRAY_LENGTH(choices); i++) {
     if (get_font(choices[i]).height < height) {
       return choices[i];
@@ -110,8 +110,19 @@ void time_element_update(TimeElement *el, DataMessage *data) {
   time_element_tick(el);
 }
 
-void time_element_tick(TimeElement *el) {
+void time_element_second_tick(TimeElement *el, struct tm* tick_time) {
   static char buffer[16];
+
+  int hr = clock_is_24h_style() ? tick_time->tm_hour : (tick_time->tm_hour > 12 ? tick_time->tm_hour - 12 : 0);
+
+  if ( !clock_is_24h_style() ) {
+    
+  }
+
+  snprintf (buffer, sizeof(buffer), "%02d:%02d:%02d", hr, tick_time->tm_min, tick_time->tm_sec);
+
+  buffer[8]= 0;
+  /*
 
 #ifdef IS_TEST_BUILD
   strcpy(buffer, TESTING_TIME_DISPLAY);
@@ -127,10 +138,17 @@ void time_element_tick(TimeElement *el) {
     };
   }
 #endif
-
+*/
   text_layer_set_text(el->time_text, buffer);
 
   if (el->recency != NULL) {
     recency_component_tick(el->recency);
   }
+}
+
+void time_element_tick(TimeElement *el) {
+  time_t temp = time(NULL);
+  struct tm *tick_time = localtime(&temp);
+  
+  time_element_second_tick(el, tick_time);
 }

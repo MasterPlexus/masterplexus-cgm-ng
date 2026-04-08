@@ -15,3 +15,4 @@ TimeElement* time_element_create(Layer *parent);
 void time_element_destroy(TimeElement *el);
 void time_element_update(TimeElement *el, DataMessage *data);
 void time_element_tick(TimeElement *el);
+void time_element_second_tick(TimeElement *el, struct tm* tick_time);

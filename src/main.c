@@ -20,9 +20,9 @@ static StatusBarElement *s_status_bar_element = NULL;
 static BGRowElement *s_bg_row_element = NULL;
 
 static void minute_handler(struct tm *tick_time, TimeUnits units_changed) {
-  if (s_time_element != NULL) {
-    time_element_tick(s_time_element);
-  }
+//  if (s_time_element != NULL) {
+//    time_element_tick(s_time_element);
+//  }
   if (s_graph_element != NULL) {
     graph_element_tick(s_graph_element);
   }
@@ -36,6 +36,16 @@ static void minute_handler(struct tm *tick_time, TimeUnits units_changed) {
     bg_row_element_tick(s_bg_row_element);
   }
 }
+
+static void second_handler(struct tm *tick_time, TimeUnits units_changed) {
+  if (s_time_element != NULL) {
+    time_element_second_tick(s_time_element, tick_time);
+  }
+  if (SECOND_UNIT != units_changed) {
+    minute_handler( tick_time, units_changed );
+  }
+}
+
 
 static void window_load(Window *window) {
   LayoutLayers layout = init_layout(window);
@@ -59,7 +69,8 @@ static void window_load(Window *window) {
     s_bg_row_element = bg_row_element_create(layout.bg_row);
   }
 
-  tick_timer_service_subscribe(MINUTE_UNIT, minute_handler);
+  tick_timer_service_subscribe(SECOND_UNIT, second_handler);
+//  tick_timer_service_subscribe(MINUTE_UNIT, minute_handler);
 }
 
 static void window_unload(Window *window) {
