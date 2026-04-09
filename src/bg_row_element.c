@@ -45,7 +45,9 @@ static void bg_row_element_rearrange(BGRowElement *el) {
 BGRowElement* bg_row_element_create(Layer *parent) {
   GRect bounds = element_get_bounds(parent);
 
-  FontChoice bg_font = get_font(FONT_34_NUMBERS);
+//FontChoice bg_font = get_font(FONT_34_NUMBERS);
+  FontChoice bg_font = get_font(FONT_36_NARROW);
+//  FontChoice bg_font = choose_font_for_height(bounds.size.h - 4, false);
   TextLayer *bg_text = add_text_layer(
     parent,
     GRect(
@@ -54,7 +56,7 @@ BGRowElement* bg_row_element_create(Layer *parent) {
       bounds.size.w,
       bg_font.height + bg_font.padding_top + bg_font.padding_bottom
     ),
-    fonts_get_system_font(bg_font.key),
+    get_g_font(bg_font),
     element_fg(parent),
     GTextAlignmentLeft
   );
@@ -65,7 +67,9 @@ BGRowElement* bg_row_element_create(Layer *parent) {
     (bounds.size.h - trend_arrow_component_height()) / 2
   );
 
+//FontChoice delta_font = get_font(FONT_28_BOLD);
   FontChoice delta_font = get_font(FONT_28_BOLD);
+//FontChoice delta_font = choose_font_for_height(bounds.size.h - 8, false);
   TextLayer *delta_text = add_text_layer(
     parent,
     GRect(
@@ -74,7 +78,7 @@ BGRowElement* bg_row_element_create(Layer *parent) {
       bounds.size.w,
       delta_font.height + delta_font.padding_top + delta_font.padding_bottom
     ),
-    fonts_get_system_font(delta_font.key),
+    get_g_font(delta_font),
     element_fg(parent),
     GTextAlignmentLeft
   );

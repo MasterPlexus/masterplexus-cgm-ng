@@ -5,7 +5,8 @@
 
 SidebarElement* sidebar_element_create(Layer *parent) {
   GRect bounds = element_get_bounds(parent);
-  FontChoice font = get_font(FONT_24_BOLD);
+  FontChoice font = get_font(FONT_36_NARROW);
+//  FontChoice font = choose_font_for_height(bounds.size.h, false);
 
   int16_t trend_arrow_y = (bounds.size.h - trend_arrow_component_height()) / 2;
   int16_t last_bg_y = (trend_arrow_y / 4 + bounds.size.h / 8) - font.height / 2 - font.padding_top;
@@ -14,7 +15,7 @@ SidebarElement* sidebar_element_create(Layer *parent) {
   TextLayer *last_bg_text = add_text_layer(
     parent,
     GRect(0, last_bg_y, bounds.size.w, font.height + font.padding_top + font.padding_bottom),
-    fonts_get_system_font(font.key),
+    get_g_font(font),
     element_fg(parent),
     GTextAlignmentCenter
   );
@@ -24,7 +25,7 @@ SidebarElement* sidebar_element_create(Layer *parent) {
   TextLayer *delta_text = add_text_layer(
     parent,
     GRect(0, delta_y, bounds.size.w, font.height + font.padding_top + font.padding_bottom),
-    fonts_get_system_font(font.key),
+    get_g_font(font),
     element_fg(parent),
     GTextAlignmentCenter
   );

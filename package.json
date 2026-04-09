@@ -176,7 +176,25 @@
           "memoryFormat": "1Bit",
           "name": "BATTERY_CHARGING",
           "file": "images/battery_charging.png"
-        }
+        },
+        {
+          "characterRegex": "[0-9:A-Za-z]",
+          "type": "font",
+          "name": "FNT_NARROW_ALT_24",
+          "file": "fonts/zrnic___.ttf"
+        },
+        {
+          "characterRegex": "[0-9:A-Za-z]",
+          "type": "font",
+          "name": "FNT_NARROW_ALT_36",
+          "file": "fonts/zrnic___.ttf"
+        },
+        {
+          "characterRegex": "[0-9:A-Za-z]",
+          "type": "font",
+          "name": "FNT_NARROW_ALT_42",
+          "file": "fonts/zrnic___.ttf"
+        }  
       ]
     }
   }

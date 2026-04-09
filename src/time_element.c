@@ -5,6 +5,7 @@
 
 #define TESTING_TIME_DISPLAY "13:37"
 
+
 static BatteryComponent *create_battery_component(Layer *parent, uint8_t battery_loc) {
   GRect bounds = element_get_bounds(parent);
   int x = -1;
@@ -62,29 +63,20 @@ static RecencyComponent *create_recency_component(Layer *parent, uint8_t recency
   }
 }
 
-static uint8_t choose_font_for_height(uint8_t height) {
-  uint8_t choices[] = {FONT_34_NUMBERS, FONT_28_BOLD, FONT_24_BOLD, FONT_18_BOLD};
-  for(uint8_t i = 0; i < ARRAY_LENGTH(choices); i++) {
-    if (get_font(choices[i]).height < height) {
-      return choices[i];
-    }
-  }
-  return choices[ARRAY_LENGTH(choices) - 1];
-}
 
 TimeElement* time_element_create(Layer* parent) {
   GRect bounds = element_get_bounds(parent);
   Preferences *prefs = get_prefs();
 
   const int time_margin = 2;
-  FontChoice font = get_font(choose_font_for_height(bounds.size.h));
+  FontChoice font = choose_font_for_height(bounds.size.h, prefs->include_seconds);
 
   TimeElement* out = malloc(sizeof(TimeElement));
 
   TextLayer* time_text = add_text_layer(
     parent,
     GRect(time_margin, (bounds.size.h - font.height) / 2 - font.padding_top, bounds.size.w - 2 * time_margin, font.height + font.padding_top + font.padding_bottom),
-    fonts_get_system_font(font.key),
+    get_g_font(font),
     element_fg(parent),
     prefs->time_align == ALIGN_LEFT ? GTextAlignmentLeft : (prefs->time_align == ALIGN_CENTER ? GTextAlignmentCenter : GTextAlignmentRight)
   );
@@ -117,7 +109,7 @@ void time_element_second_tick(TimeElement *el, struct tm* tick_time) {
 
   if (get_prefs()->include_seconds) {
     snprintf (buffer, sizeof(buffer), "%d:%02d:%02d", hr, tick_time->tm_min, tick_time->tm_sec);
-    if (hr > 10) buffer[8]= 0;
+    if (hr >= 10) buffer[8]= 0;
     else buffer[7] = 0;
   }
   else {
@@ -125,23 +117,10 @@ void time_element_second_tick(TimeElement *el, struct tm* tick_time) {
     buffer[5] = 0;
   }
 
-  /*
-
 #ifdef IS_TEST_BUILD
   strcpy(buffer, TESTING_TIME_DISPLAY);
-#else
-  clock_copy_time_string(buffer, 16);
-
-  if (!clock_is_24h_style()) {
-    // remove " AM" suffix
-    if(buffer[4] == ' ') {
-      buffer[4] = 0;
-    } else {
-      buffer[5] = 0;
-    };
-  }
 #endif
-*/
+
   text_layer_set_text(el->time_text, buffer);
 
   if (el->recency != NULL) {
