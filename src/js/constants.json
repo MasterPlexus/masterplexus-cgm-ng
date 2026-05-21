@@ -1,5 +1,5 @@
 {
-   "VERSION" : "0.0.16",
+   "VERSION" : "0.0.15",
 
    "DEBUG": false,
    "DEV_CONFIG_URL": "",
@@ -56,8 +56,6 @@
       "predictColorDefault": "0xFF00AA",
       "predictColorHigh": "0xFF00AA",
       "predictColorLow": "0xFF00AA",
-      "include_local_path": false,
-      "json_path": "",
       "updateEveryMinute": false,
       "layout" : "a",
       "advancedLayout": false,

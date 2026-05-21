@@ -71,9 +71,7 @@
       "statusMinRecencyToShowMinutes": 27,
       "statusMaxAgeMinutes": 28,
       "statusRecencyFormat": 29,
-      "includeSeconds" : 30,
-      "include_local_path" : 31,
-      "json_path" : 32
+      "includeSeconds" : 30
     },
     "resources": {
       "media": [

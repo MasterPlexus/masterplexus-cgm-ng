@@ -113,25 +113,6 @@ var data = function(c, maxSGVCount) {
   };
 
   d.getURL = function(url) {
-    var localPath;
-    if (url.indexOf('file://') === 0) {
-      localPath = url.slice(7);
-    } else if (url.charAt(0) === '/') {
-      localPath = url;
-    }
-
-    if (localPath !== undefined) {
-      return new Promise(function(resolve, reject) {
-        try {
-          require('fs').readFile(localPath, 'utf8', function(err, data) {
-            if (err) { reject(err); } else { resolve(data); }
-          });
-        } catch (e) {
-          reject(new Error('Local file reading not supported in this environment: ' + e));
-        }
-      });
-    }
-
     return d.fetch(url, 'GET', {'Cache-Control': 'no-cache'}, null);
   };
 
@@ -153,10 +134,7 @@ var data = function(c, maxSGVCount) {
   };
 
   d.getPebbleEndpoint = debounce(function(config) {
-    var url = config.include_local_path
-      ? config.json_path + '/pebble.json'
-      : config.nightscout_url + '/pebble';
-    return d.getJSON(url).then(function(pebbleData) {
+    return d.getJSON(config.nightscout_url + '/pebble').then(function(pebbleData) {
       if (pebbleData['bgs'] !== undefined && pebbleData['bgs'].length) {
         return pebbleData['bgs'][0];
       } else {
@@ -750,21 +728,11 @@ var data = function(c, maxSGVCount) {
   }
 
   d.getNightscoutSGVsDateDescending = debounce(function(config) {
-    if (config.include_local_path) {
-      return d.getJSON(config.json_path + '/sgv.json').then(function(newEntries) {
-        var filtered = newEntries.filter(function(e) {
-          return sgvCache.entries.length === 0 || e['date'] > sgvCache.entries[0]['date'];
-        });
-        return sgvCache.update(
-          filterKeys(filtered, ['date', 'sgv', 'trend', 'direction', 'filtered', 'unfiltered', 'noise'])
-        );
-      });
-    }
     var start;
     if (sgvCache.entries.length) {
       start = sgvCache.entries[0]['date'];
     } else {
-      start = new Date() - sgvCache.maxSecondsOld * 100;
+      start = new Date() - sgvCache.maxSecondsOld * 1000;
     }
     var url = config.nightscout_url + '/api/v1/entries/sgv.json?count=1000&find[date][$gt]=' + start;
     return d.getJSON(url).then(function(newEntries) {
@@ -775,17 +743,6 @@ var data = function(c, maxSGVCount) {
   });
 
   d.getTempBasals = debounce(function(config) {
-    if (config.include_local_path) {
-      return d.getJSON(config.json_path + '/treatments.json').then(function(entries) {
-        var filtered = entries.filter(function(e) {
-          return e['eventType'] === 'Temp Basal' &&
-            (tempBasalCache.entries.length === 0 || e['created_at'] > tempBasalCache.entries[0]['created_at']);
-        });
-        return tempBasalCache.update(
-          filterKeys(filtered, ['created_at', 'duration', 'absolute', 'percent'])
-        );
-      });
-    }
     return getUsingCache(
       config.nightscout_url + '/api/v1/treatments.json?find[eventType]=Temp+Basal&count=' + tempBasalCache.maxSize,
       tempBasalCache,
@@ -811,17 +768,6 @@ var data = function(c, maxSGVCount) {
   });
 
   d.getBolusHistory = debounce(function(config) {
-    if (config.include_local_path) {
-      return d.getJSON(config.json_path + '/treatments.json').then(function(entries) {
-        var filtered = entries.filter(function(e) {
-          return e['insulin'] !== undefined &&
-            (bolusCache.entries.length === 0 || e['created_at'] > bolusCache.entries[0]['created_at']);
-        });
-        return bolusCache.update(
-          filterKeys(filtered, ['created_at', 'insulin'])
-        );
-      });
-    }
     return getUsingCache(
       config.nightscout_url + '/api/v1/treatments.json?find[insulin][$exists]=true&count=' + bolusCache.maxSize,
       bolusCache,
