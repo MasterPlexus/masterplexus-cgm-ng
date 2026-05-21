@@ -36,6 +36,8 @@
           </div>
         </div>
 
+
+        
         <div class="item-container source-dependent" data-sources="nightscout">
           <div class="item-container-header">Nightscout URL</div>
           <div class="item-container-content">
@@ -48,6 +50,25 @@
           <div class="item-container-footer">
             This probably looks like: <strong>https://YOURSITENAME.azurewebsites.net</strong>
           </div>
+          <div class="item-container-content">
+            <label class="item">
+              <input name="include_local_path" id="include_local_path" type="checkbox" class="item-checkbox">
+              Include Local Path Access for Generated .JSON Files
+            </label>
+          </div>
+          <div class="item-container-footer">
+            This provides offline access if xDrip is configured to write a local set of .json files.
+          </div>
+          <div class="item-container-content">
+            <label class="item">
+              <div class="item-input-wrapper">
+                <input id="json_path" class="item-input" autocomplete="off" autocapitalize="none" autocorrect="off" spellcheck="false">
+              </div>
+            </label>
+          </div>
+          <div class="item-container-footer">
+            This probably looks like: <strong>https://YOURSITENAME.azurewebsites.net</strong>
+          </div>          
         </div>
 
         <div class="item-container source-dependent" data-sources="dexcom">

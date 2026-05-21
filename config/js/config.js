@@ -627,6 +627,7 @@
   function populateValues(current) {
     $('[name=dataSource][value=' + current['dataSource'] + ']').addClass('active');
     $('#ns-url').val(current['nightscout_url'] || '');
+    $('#json_path').val(current['json_path'] || '');
     $('[name=dexcomUsername]').val(current['dexcomUsername'] || '');
     $('[name=dexcomPassword]').val(current['dexcomPassword'] || '');
 
@@ -679,6 +680,7 @@
     decodeLayout(current['layout']);
 
     $('[name=includeSeconds]').prop('checked', !!current['includeSeconds']);
+    $('[name=include_local_path]').prop('checked', !!current['include_local_path']);
   }
 
   function buildConfig() {

@@ -102,8 +102,10 @@ FontChoice get_font(uint8_t font_size) {
 
 FontChoice choose_font_for_height(uint8_t height, bool narrow) {
 // Go through system fonts ONLY if narrow fonts aren't requested
+  narrow = false;
   if ( !narrow ) {
-    uint8_t choices[] = {FONT_42_BOLD, FONT_34_NUMBERS, FONT_28_BOLD, FONT_24_BOLD, FONT_18_BOLD};
+//    uint8_t choices[] = {FONT_42_BOLD, FONT_34_NUMBERS, FONT_28_BOLD, FONT_24_BOLD, FONT_18_BOLD};
+    uint8_t choices[] = { FONT_34_NUMBERS, FONT_28_BOLD, FONT_24_BOLD, FONT_18_BOLD };
     for(uint8_t i = 0; i < ARRAY_LENGTH(choices); i++) {
       if (get_font(choices[i]).height < height) {
         return get_font(choices[i]);
