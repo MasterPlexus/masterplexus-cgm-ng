@@ -147,23 +147,37 @@ bool validate_data_message(DictionaryIterator *data, DataMessage *out) {
   memcpy(out->prediction_2, zeroes, PREDICTION_MAX_LENGTH * sizeof(uint8_t));
   memcpy(out->prediction_3, zeroes, PREDICTION_MAX_LENGTH * sizeof(uint8_t));
 
+  // Use local temporaries to avoid taking addresses of packed struct members,
+  // which is undefined behavior on unaligned architectures (-Werror=address-of-packed-member).
+  int32_t recency = 0, last_sgv = 0, trend = 0, delta = NO_DELTA_VALUE, status_recency = -1;
+  uint16_t sgv_count = 0;
+
   bool success = true
-    && get_int32(data, &out->recency, MESSAGE_KEY_recency, false, 0)
+    && get_int32(data, &recency, MESSAGE_KEY_recency, false, 0)
     && get_byte_array(data, out->sgvs, MESSAGE_KEY_sgvs, GRAPH_MAX_SGV_COUNT, true, NULL)
-    && get_byte_array_length(data, &out->sgv_count, GRAPH_MAX_SGV_COUNT, MESSAGE_KEY_sgvs)
-    && get_int32(data, &out->last_sgv, MESSAGE_KEY_lastSgv, true, 0)
-    && get_int32(data, &out->trend, MESSAGE_KEY_trend, false, 0)
-    && get_int32(data, &out->delta, MESSAGE_KEY_delta, false, NO_DELTA_VALUE)
+    && get_byte_array_length(data, &sgv_count, GRAPH_MAX_SGV_COUNT, MESSAGE_KEY_sgvs)
+    && get_int32(data, &last_sgv, MESSAGE_KEY_lastSgv, true, 0)
+    && get_int32(data, &trend, MESSAGE_KEY_trend, false, 0)
+    && get_int32(data, &delta, MESSAGE_KEY_delta, false, NO_DELTA_VALUE)
     && get_cstring(data, out->status_text, MESSAGE_KEY_statusText, STATUS_BAR_MAX_LENGTH, false, "")
-    && get_int32(data, &out->status_recency, MESSAGE_KEY_statusRecency, false, -1)
+    && get_int32(data, &status_recency, MESSAGE_KEY_statusRecency, false, -1)
     && get_byte_array(data, (uint8_t*)out->graph_extra, MESSAGE_KEY_graphExtra, GRAPH_MAX_SGV_COUNT, false, zeroes);
+
+  out->recency = recency;
+  out->sgv_count = sgv_count;
+  out->last_sgv = last_sgv;
+  out->trend = trend;
+  out->delta = delta;
+  out->status_recency = status_recency;
 
   out->prediction_length = 0;
   get_prediction(data, out->prediction_1, MESSAGE_KEY_prediction1, &out->prediction_length);
   get_prediction(data, out->prediction_2, MESSAGE_KEY_prediction2, &out->prediction_length);
   get_prediction(data, out->prediction_3, MESSAGE_KEY_prediction3, &out->prediction_length);
   if (out->prediction_length > 0) {
-    success = success && get_int32(data, &out->prediction_recency, MESSAGE_KEY_predictionRecency, false, 0);
+    int32_t prediction_recency = 0;
+    success = success && get_int32(data, &prediction_recency, MESSAGE_KEY_predictionRecency, false, 0);
+    out->prediction_recency = prediction_recency;
   }
 
   return success;

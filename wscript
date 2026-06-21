@@ -56,7 +56,7 @@ def distclean(ctx):
         found = ctx.path.find_dir(build_dir)
         if found:
             cmd = 'rm -r {}'.format(found.abspath())
-            print cmd
+            print(cmd)
             ctx.exec_command(cmd)
 
 def build(ctx):

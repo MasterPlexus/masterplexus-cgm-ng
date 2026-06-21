@@ -21,14 +21,15 @@ def call_minify(command_str, stdin, filename):
     parts = command_str.split(' ')
     try:
         proc = subprocess.Popen(parts, stdin=subprocess.PIPE, stdout=subprocess.PIPE)
-    except Exception, e:
+    except Exception as e:
         raise Exception("Command failed: {}: {}".format(command_str, e))
-    out, err = proc.communicate(input=stdin)
+    out, err = proc.communicate(input=stdin.encode('utf-8'))
     if err:
-        print command_str
+        print(command_str)
         raise Exception('{}: {}: failed with return code {}'.format(command_str, filename, err))
     else:
-        print '{}: {}: {} -> {} bytes'.format(parts[0], filename, len(stdin), len(out))
+        out = out.decode('utf-8')
+        print('{}: {}: {} -> {} bytes'.format(parts[0], filename, len(stdin), len(out)))
         return out
 
 def make_inline_config(task, html_file_node):
@@ -52,13 +53,13 @@ def make_inline_config(task, html_file_node):
         filename = re.sub("(^'|'$)", '', filename)
         assert filename.endswith('.png')
         mime_type = 'image/png'
-        encoded = base64.b64encode(open(os.path.join(css_dir, filename), "rb").read())
+        encoded = base64.b64encode(open(os.path.join(css_dir, filename), "rb").read()).decode('ascii')
         css = css.replace(
             url[0],
             'url(data:{};base64,{})'.format(mime_type, encoded)
         )
 
-    minified_css = call_minify('./node_modules/clean-css/bin/cleancss', css, os.path.relpath(css_filename))
+    minified_css = call_minify('./node_modules/clean-css-cli/bin/cleancss', css, os.path.relpath(css_filename))
 
     html = html.replace(
         css_tags[0][0],
