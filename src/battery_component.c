@@ -103,6 +103,28 @@ BatteryComponent* battery_component_create(Layer *parent, int16_t x, int16_t y, 
   return c;
 }
 
+void battery_component_reposition(BatteryComponent *c, int16_t x, int16_t y) {
+  if (c == NULL) {
+    return;
+  }
+  if (get_prefs()->battery_as_number) {
+    if (c->text_layer != NULL) {
+      FontChoice font = get_font(BATTERY_FONT);
+      GRect frame = layer_get_frame(text_layer_get_layer(c->text_layer));
+      layer_set_frame(
+        text_layer_get_layer(c->text_layer),
+        GRect(x, y - font.padding_top + font.padding_bottom, frame.size.w, frame.size.h)
+      );
+    }
+  } else if (c->icon_layer != NULL) {
+    GRect frame = layer_get_frame(bitmap_layer_get_layer(c->icon_layer));
+    layer_set_frame(
+      bitmap_layer_get_layer(c->icon_layer),
+      GRect(x, y + BATTERY_ICON_TOP_FUDGE, frame.size.w, frame.size.h)
+    );
+  }
+}
+
 void battery_component_destroy(BatteryComponent *c) {
   if (c->icon_bitmap != NULL) {
     gbitmap_destroy(c->icon_bitmap);

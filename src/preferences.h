@@ -5,7 +5,7 @@
 #define PERSIST_KEY_VERSION 0
 #define PERSIST_KEY_PREFERENCES_OBJECT 1
 
-#define PREFERENCES_SCHEMA_VERSION 15
+#define PREFERENCES_SCHEMA_VERSION 19
 
 enum {
   ALIGN_LEFT,
@@ -20,6 +20,18 @@ enum {
   BATTERY_LOC_TIME_TOP_RIGHT,
   BATTERY_LOC_TIME_BOTTOM_LEFT,
   BATTERY_LOC_TIME_BOTTOM_RIGHT,
+};
+
+enum {
+  STAT_LOC_NONE,
+  STAT_LOC_TIME_TOP_LEFT,
+  STAT_LOC_TIME_TOP_RIGHT,
+  STAT_LOC_TIME_BOTTOM_LEFT,
+  STAT_LOC_TIME_BOTTOM_RIGHT,
+  STAT_LOC_BG_TOP_LEFT,
+  STAT_LOC_BG_TOP_RIGHT,
+  STAT_LOC_BG_BOTTOM_LEFT,
+  STAT_LOC_BG_BOTTOM_RIGHT,
 };
 
 enum {
@@ -80,6 +92,7 @@ enum {
   COLOR_KEY_POINT_DEFAULT,
   COLOR_KEY_POINT_HIGH,
   COLOR_KEY_POINT_LOW,
+  COLOR_KEY_POINT_WITHIN,
   COLOR_KEY_PLOT_LINE,
   COLOR_KEY_RECENCY_CIRCLE,
   COLOR_KEY_RECENCY_TEXT,
@@ -116,11 +129,15 @@ typedef struct __attribute__((__packed__)) Preferences {
   uint8_t bottom_of_graph;
   uint8_t h_gridlines;
   bool battery_as_number;
+  bool bg_text_black;
   bool basal_graph;
   unsigned int basal_height:5;
   bool update_every_minute;
   unsigned int time_align:2;
+  unsigned int bg_align:2;
   unsigned int battery_loc:3;
+  unsigned int steps_loc:3;
+  unsigned int pulse_loc:3;
   unsigned int conn_status_loc:2;
   unsigned int recency_loc:4;
   unsigned int recency_style:3;

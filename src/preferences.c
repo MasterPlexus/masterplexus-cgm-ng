@@ -80,11 +80,15 @@ void set_prefs(DictionaryIterator *data) {
   s_prefs->bottom_of_graph = get_int32(data, MESSAGE_KEY_bottomOfGraph);
   s_prefs->h_gridlines = get_int32(data, MESSAGE_KEY_hGridlines);
   s_prefs->battery_as_number = get_int32(data, MESSAGE_KEY_batteryAsNumber);
+  s_prefs->bg_text_black = get_int32(data, MESSAGE_KEY_bgTextBlack);
   s_prefs->basal_graph = get_int32(data, MESSAGE_KEY_basalGraph);
   s_prefs->basal_height = get_int32(data, MESSAGE_KEY_basalHeight);
   s_prefs->update_every_minute = get_int32(data, MESSAGE_KEY_updateEveryMinute);
   s_prefs->time_align = get_int32(data, MESSAGE_KEY_timeAlign);
+  s_prefs->bg_align = get_int32(data, MESSAGE_KEY_bgAlign);
   s_prefs->battery_loc = get_int32(data, MESSAGE_KEY_batteryLoc);
+  s_prefs->steps_loc = get_int32(data, MESSAGE_KEY_stepsLoc);
+  s_prefs->pulse_loc = get_int32(data, MESSAGE_KEY_pulseLoc);
   s_prefs->conn_status_loc = get_int32(data, MESSAGE_KEY_connStatusLoc);
   s_prefs->recency_loc = get_int32(data, MESSAGE_KEY_recencyLoc);
   s_prefs->recency_style = get_int32(data, MESSAGE_KEY_recencyStyle);

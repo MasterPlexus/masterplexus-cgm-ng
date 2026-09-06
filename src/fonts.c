@@ -86,6 +86,16 @@ FontChoice get_font(uint8_t font_size) {
         .res_id = RESOURCE_ID_FNT_NARROW_ALT_42,     
        };   
 
+    case FONT_52_NARROW:
+       return (FontChoice) {
+        .height = 44,
+        .padding_top = 14,
+        .padding_bottom = 10,
+        .custom = true,
+        .narrow = true,
+        .res_id = RESOURCE_ID_FNT_NARROW_ALT_52,
+       };
+
     default:
       return (FontChoice) {
         .key = FONT_KEY_GOTHIC_24_BOLD,

@@ -5,6 +5,32 @@
 
 #define TESTING_TIME_DISPLAY "13:37"
 
+static HealthStatComponent *create_health_stat_component(Layer *parent, uint8_t loc, bool pulse, bool stack_after_sibling) {
+  if (loc == STAT_LOC_NONE) {
+    return NULL;
+  }
+  // Only the four corners of the time area are handled here; BG-row corners
+  // are handled by the BG row element.
+  bool is_time_loc = (loc == STAT_LOC_TIME_TOP_LEFT || loc == STAT_LOC_TIME_TOP_RIGHT ||
+                      loc == STAT_LOC_TIME_BOTTOM_LEFT || loc == STAT_LOC_TIME_BOTTOM_RIGHT);
+  if (!is_time_loc) {
+    return NULL;
+  }
+  GRect bounds = element_get_bounds(parent);
+  bool top = (loc == STAT_LOC_TIME_TOP_LEFT || loc == STAT_LOC_TIME_TOP_RIGHT);
+  bool right = (loc == STAT_LOC_TIME_TOP_RIGHT || loc == STAT_LOC_TIME_BOTTOM_RIGHT);
+  int16_t h = health_stat_component_height();
+  int16_t y = top ? 0 : bounds.size.h - h;
+  if (stack_after_sibling) {
+    // If steps & pulse share a corner, stack them instead of overlapping.
+    y = top ? (y + h + 1) : (y - h - 1);
+    if (y < 0) {
+      y = 0;
+    }
+  }
+  return health_stat_component_create(parent, y, pulse, right, false);
+}
+
 
 static BatteryComponent *create_battery_component(Layer *parent, uint8_t battery_loc) {
   GRect bounds = element_get_bounds(parent);
@@ -84,6 +110,11 @@ TimeElement* time_element_create(Layer* parent) {
   out->time_text = time_text;
   out->battery = create_battery_component(parent, prefs->battery_loc);
   out->recency = create_recency_component(parent, prefs->recency_loc);
+  // If both steps & pulse use the same corner, stack the pulse beside the steps
+  // so the two symbols never overlap.
+  bool stacked = (prefs->steps_loc != STAT_LOC_NONE && prefs->steps_loc == prefs->pulse_loc);
+  out->steps = create_health_stat_component(parent, prefs->steps_loc, false, false);
+  out->pulse = create_health_stat_component(parent, prefs->pulse_loc, true, stacked);
   return out;
 }
 
@@ -94,6 +125,12 @@ void time_element_destroy(TimeElement* el) {
   }
   if (el->recency != NULL) {
     recency_component_destroy(el->recency);
+  }
+  if (el->steps != NULL) {
+    health_stat_component_destroy(el->steps);
+  }
+  if (el->pulse != NULL) {
+    health_stat_component_destroy(el->pulse);
   }
   free(el);
 }
@@ -125,6 +162,20 @@ void time_element_second_tick(TimeElement *el, struct tm* tick_time) {
 
   if (el->recency != NULL) {
     recency_component_tick(el->recency);
+  }
+
+  // Refresh the health stats at most once per minute (they don't change more
+  // often, and reading them every second would be wasteful).
+  static int32_t last_stat_minute = -1;
+  int32_t minute = tick_time->tm_hour * 60 + tick_time->tm_min;
+  if (minute != last_stat_minute) {
+    last_stat_minute = minute;
+    if (el->steps != NULL) {
+      health_stat_component_update(el->steps);
+    }
+    if (el->pulse != NULL) {
+      health_stat_component_update(el->pulse);
+    }
   }
 }
 

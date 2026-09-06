@@ -49,6 +49,10 @@
   watchInfo.at = watchInfo.at || getQueryParam('at');
   watchInfo.wt = watchInfo.wt || getQueryParam('wt');
 
+  // The config page runs on the phone of a specific watch, so scale geometry
+  // (graph width, visible history length, etc.) to that watch's display width.
+  c.SCREEN_WIDTH = c.SCREEN_WIDTHS[watchInfo.pf] || c.SCREEN_WIDTH;
+
   var phoneConfig = {};
   try {
     phoneConfig = JSON.parse(decodeURIComponent('$$CURRENT$$'));
@@ -663,6 +667,11 @@
       $('[name=batteryAsNumber][value=icon]').addClass('active');
     }
 
+    $('[name=stepsLoc]').val(current['stepsLoc'] || 'none');
+    $('[name=pulseLoc]').val(current['pulseLoc'] || 'none');
+    $('[name=bgTextBlack]').prop('checked', !!current['bgTextBlack']);
+    $('[name=bgAlign]').val(current['bgAlign'] || 'center');
+
     $('[name=bolusTicks]').prop('checked', !!current['bolusTicks']);
     $('[name=basalGraph]').prop('checked', !!current['basalGraph']);
 
@@ -712,6 +721,10 @@
       statusMaxAgeMinutes: tryParseInt($('[name=statusMaxAgeMinutes]').val()),
       statusRecencyFormat: $('[name=statusRecencyFormat]').val(),
       batteryAsNumber: $('[name=batteryAsNumber][value=number]').hasClass('active'),
+      stepsLoc: $('[name=stepsLoc]').val() || 'none',
+      pulseLoc: $('[name=pulseLoc]').val() || 'none',
+      bgTextBlack: $('[name=bgTextBlack]').is(':checked'),
+      bgAlign: $('[name=bgAlign]').val() || 'center',
       bolusTicks: $('[name=bolusTicks]').is(':checked'),
       basalGraph: $('[name=basalGraph]').is(':checked'),
       predictEnabled: $('[name=predictEnabled]').is(':checked'),

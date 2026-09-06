@@ -3,12 +3,15 @@
 #include <pebble.h>
 #include "app_messages.h"
 #include "battery_component.h"
+#include "health_stat_component.h"
 #include "recency_component.h"
 
 typedef struct TimeElement {
   TextLayer *time_text;
   BatteryComponent *battery;
   RecencyComponent *recency;
+  HealthStatComponent *steps;
+  HealthStatComponent *pulse;
 } TimeElement;
 
 TimeElement* time_element_create(Layer *parent);

@@ -3,11 +3,13 @@
 #include <pebble.h>
 #include "app_messages.h"
 
-// This can theoretically be maxed out to 984 bytes by combining:
+// The largest possible message is bounded by the width of the display:
 //   - status bar text of 255 characters
-//   - point width of 1px (144 points + 144 "graph extra")
+//   - point width of 1px (one point + one "graph extra" byte per pixel)
 //   - 3 prediction series of length 60
-#define CONTENT_SIZE 1024
+// 1024 bytes is enough for a 144 px wide display (Aplite/Basalt); the wider
+// Pebble Time 2 display (emery, 200 px) needs a little extra headroom.
+#define CONTENT_SIZE (1024 + (GRAPH_MAX_SGV_COUNT - 144) * 2)
 
 // There are many failure modes...
 #define INITIAL_TIMEOUT_HALVED 2500

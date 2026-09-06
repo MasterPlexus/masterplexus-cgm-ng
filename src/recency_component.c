@@ -142,6 +142,17 @@ RecencyComponent* recency_component_create(Layer *parent, uint16_t y, bool align
   return c;
 }
 
+void recency_component_reposition(RecencyComponent *c, uint16_t y) {
+  if (c == NULL) {
+    return;
+  }
+  GRect frame = layer_get_frame(c->circle_layer);
+  layer_set_frame(
+    c->circle_layer,
+    GRect(recency_component_padding(), y + recency_component_padding(), frame.size.w, frame.size.h)
+  );
+}
+
 void recency_component_destroy(RecencyComponent *c) {
   layer_destroy(c->circle_layer);
   free(c);

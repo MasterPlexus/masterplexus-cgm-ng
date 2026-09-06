@@ -23,5 +23,6 @@ typedef struct RecencyStyle {
 uint16_t recency_component_height();
 uint16_t recency_component_padding();
 RecencyComponent* recency_component_create(Layer *parent, uint16_t y, bool align_right, void (*size_changed_callback)(GSize, void*), void *size_changed_context);
+void recency_component_reposition(RecencyComponent *c, uint16_t y);
 void recency_component_destroy(RecencyComponent *c);
 void recency_component_tick(RecencyComponent *c);

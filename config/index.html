@@ -12,7 +12,7 @@
           <div class="item alert">
             <strong>An update is available!</strong>
             <br>
-            Your watch is running v<span id="running-version">?</span>. The current version is v<span id="available-version">?</span>. Some of these options may not work until you update. Visit the GitHub page for <strong>Urchin CGM</strong>.
+            Your watch is running v<span id="running-version">?</span>. The current version is v<span id="available-version">?</span>. Some of these options may not work until you update. Visit the GitHub page for <strong>Master-Plexus-CGM-NG</strong>.
           </div>
         </div>
       </div>
@@ -315,6 +315,14 @@
               <label class="item">
                 When below range
                 <input type="text" class="item-color item-color-normal" name="pointColorLow" value="#000000">
+              </label>
+              <label class="item">
+                When within range
+                <input type="text" class="item-color item-color-normal" name="pointColorWithin" value="#000000">
+              </label>
+              <label class="item">
+                BG value text black
+                <input name="bgTextBlack" type="checkbox" class="item-checkbox">
               </label>
               <label class="item plot-line-is-custom-color-container">
                 Line color
@@ -927,6 +935,20 @@
           </div>
 
           <div class="item-container">
+            <div class="item-container-header">BG row alignment (value + arrow + delta)</div>
+            <div class="item-container-content">
+              <label class="item">
+                &nbsp;
+                <select id="bgAlign" name="bgAlign" dir="rtl" class="item-select">
+                  <option value="left" class="item-select-option">Left</option>
+                  <option value="center" class="item-select-option">Center</option>
+                  <option value="right" class="item-select-option">Right</option>
+                </select>
+              </label>
+            </div>
+          </div>
+
+          <div class="item-container">
             <div class="item-container-header">Battery location</div>
             <div class="item-container-content">
               <label class="item">
@@ -938,6 +960,46 @@
                   <option value="timeTopRight" class="item-select-option">Time - top right</option>
                   <option value="timeBottomLeft" class="item-select-option">Time - bottom left</option>
                   <option value="timeBottomRight" class="item-select-option">Time - bottom right</option>
+                </select>
+              </label>
+            </div>
+          </div>
+
+          <div class="item-container">
+            <div class="item-container-header">Steps location (Pebble Health)</div>
+            <div class="item-container-content">
+              <label class="item">
+                &nbsp;
+                <select id="stepsLoc" name="stepsLoc" dir="rtl" class="item-select">
+                  <option value="none" class="item-select-option">Don't show</option>
+                  <option value="timeTopLeft" class="item-select-option">Time - top left</option>
+                  <option value="timeTopRight" class="item-select-option">Time - top right</option>
+                  <option value="timeBottomLeft" class="item-select-option">Time - bottom left</option>
+                  <option value="timeBottomRight" class="item-select-option">Time - bottom right</option>
+                  <option value="bgTopLeft" class="item-select-option">BG row - top left</option>
+                  <option value="bgTopRight" class="item-select-option">BG row - top right</option>
+                  <option value="bgBottomLeft" class="item-select-option">BG row - bottom left</option>
+                  <option value="bgBottomRight" class="item-select-option">BG row - bottom right</option>
+                </select>
+              </label>
+            </div>
+          </div>
+
+          <div class="item-container">
+            <div class="item-container-header">Pulse location (Pebble Health)</div>
+            <div class="item-container-content">
+              <label class="item">
+                &nbsp;
+                <select id="pulseLoc" name="pulseLoc" dir="rtl" class="item-select">
+                  <option value="none" class="item-select-option">Don't show</option>
+                  <option value="timeTopLeft" class="item-select-option">Time - top left</option>
+                  <option value="timeTopRight" class="item-select-option">Time - top right</option>
+                  <option value="timeBottomLeft" class="item-select-option">Time - bottom left</option>
+                  <option value="timeBottomRight" class="item-select-option">Time - bottom right</option>
+                  <option value="bgTopLeft" class="item-select-option">BG row - top left</option>
+                  <option value="bgTopRight" class="item-select-option">BG row - top right</option>
+                  <option value="bgBottomLeft" class="item-select-option">BG row - bottom left</option>
+                  <option value="bgBottomRight" class="item-select-option">BG row - bottom right</option>
                 </select>
               </label>
             </div>
@@ -1024,7 +1086,7 @@
 
           <div class="item-container">
             <div class="item-container-footer">
-              Crafted a beautiful custom layout? Improved a preset layout? Found a bug? Please share: post an issue on the Urchin CGM GitHub page!
+              Crafted a beautiful custom layout? Improved a preset layout? Found a bug? Please share: post an issue on the Master-Plexus-CGM-NG GitHub page!
             </div>
           </div>
 

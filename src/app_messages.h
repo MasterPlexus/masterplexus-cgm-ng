@@ -2,7 +2,20 @@
 
 #include <pebble.h>
 
-#define GRAPH_MAX_SGV_COUNT 144
+// At 1 px per point the number of points that fit across the graph equals the
+// width of the display. Scale with the active platform so wider displays
+// (Pebble Time 2 / emery = 200 px) can show as much history as Aplite/Basalt
+// (144 px) do today.
+#if defined(PBL_PLATFORM_EMERY)
+  // Pebble Time 2: 200 px wide display
+  #define GRAPH_MAX_SGV_COUNT 200
+#elif defined(PBL_PLATFORM_CHALK)
+  // Pebble Time Round: 180 px wide display
+  #define GRAPH_MAX_SGV_COUNT 180
+#else
+  // Aplite, Basalt, Diorite: 144 px wide display
+  #define GRAPH_MAX_SGV_COUNT 144
+#endif
 #define STATUS_BAR_MAX_LENGTH 256
 #define PREDICTION_MAX_LENGTH 60
 #define NO_DELTA_VALUE 65536

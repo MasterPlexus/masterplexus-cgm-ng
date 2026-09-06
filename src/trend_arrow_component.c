@@ -80,6 +80,10 @@ void trend_arrow_component_reposition(TrendArrowComponent *c, int16_t x, int16_t
   );
 }
 
+void trend_arrow_component_set_compositing(TrendArrowComponent *c, GCompOp op) {
+  bitmap_layer_set_compositing_mode(c->icon_layer, op);
+}
+
 bool trend_arrow_component_hidden(TrendArrowComponent *c) {
   return layer_get_hidden(bitmap_layer_get_layer(c->icon_layer));
 }

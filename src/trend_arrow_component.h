@@ -15,4 +15,5 @@ TrendArrowComponent* trend_arrow_component_create(Layer *parent, int16_t x, int1
 void trend_arrow_component_destroy(TrendArrowComponent *c);
 void trend_arrow_component_update(TrendArrowComponent *c, DataMessage *data);
 void trend_arrow_component_reposition(TrendArrowComponent *c, int16_t x, int16_t y);
+void trend_arrow_component_set_compositing(TrendArrowComponent *c, GCompOp op);
 bool trend_arrow_component_hidden(TrendArrowComponent *c);

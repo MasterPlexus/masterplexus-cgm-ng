@@ -1,5 +1,5 @@
 {
-  "name": "urchin-cgm-second",
+  "name": "master-plexus-cgm-ng",
   "author": "Daniel Binkis",
   "version": "0.1.0",
   "keywords": [
@@ -13,14 +13,17 @@
     "uglify-js": "~2.7.3"
   },
   "pebble": {
-    "displayName": "Urchin CGM Second Hand",
+    "displayName": "Master-Plexus-CGM-NG",
+    "shortName": "Master-Plexus-CGM-NG",
+    "longName": "Master-Plexus-CGM-NG",
     "uuid": "ea361603-0373-4865-9824-8f52c65c6e08",
     "projectType": "native",
     "sdkVersion": "3",
     "enableMultiJS": true,
     "targetPlatforms": [
       "aplite",
-      "basalt"
+      "basalt",
+      "emery"
     ],
     "watchapp": {
       "watchface": true
@@ -72,7 +75,11 @@
       "statusMinRecencyToShowMinutes": 27,
       "statusMaxAgeMinutes": 28,
       "statusRecencyFormat": 29,
-      "includeSeconds": 30
+      "includeSeconds": 30,
+      "stepsLoc": 31,
+      "pulseLoc": 32,
+      "bgTextBlack": 33,
+      "bgAlign": 34
     },
     "resources": {
       "media": [
@@ -179,6 +186,18 @@
           "file": "images/battery_charging.png"
         },
         {
+          "type": "bitmap",
+          "memoryFormat": "1Bit",
+          "name": "ICON_HEART",
+          "file": "images/icon_heart.png"
+        },
+        {
+          "type": "bitmap",
+          "memoryFormat": "1Bit",
+          "name": "ICON_SHOE",
+          "file": "images/icon_shoe.png"
+        },
+        {
           "characterRegex": "[0-9:A-Za-z]",
           "type": "font",
           "name": "FNT_NARROW_ALT_24",
@@ -194,6 +213,12 @@
           "characterRegex": "[0-9:A-Za-z]",
           "type": "font",
           "name": "FNT_NARROW_ALT_42",
+          "file": "fonts/zrnic___.ttf"
+        },
+        {
+          "characterRegex": "[0-9:A-Za-z]",
+          "type": "font",
+          "name": "FNT_NARROW_ALT_52",
           "file": "fonts/zrnic___.ttf"
         }
       ]

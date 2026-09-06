@@ -28,6 +28,7 @@
       "pointColorDefault": "0x000000",
       "pointColorHigh": "0x000000",
       "pointColorLow": "0x000000",
+      "pointColorWithin": "0x000000",
       "plotLineIsCustomColor": false,
       "plotLineColor": "0x000000",
       "statusContent" : "none",
@@ -46,7 +47,11 @@
       "statusMinRecencyToShowMinutes": 10,
       "statusMaxAgeMinutes": 30,
       "statusRecencyFormat": "parenLeft",
-      "batteryAsNumber": false,
+      "batteryAsNumber": true,
+      "stepsLoc": "none",
+      "pulseLoc": "none",
+      "bgTextBlack": false,
+      "bgAlign": "center",
       "bolusTicks": false,
       "basalGraph": false,
       "basalHeight": 15,
@@ -199,6 +204,7 @@
       "pointColorDefault",
       "pointColorHigh",
       "pointColorLow",
+      "pointColorWithin",
       "plotLineColor",
       "recencyColorCircle",
       "recencyColorText",
@@ -251,6 +257,18 @@
       "graphBottomLeft" : 2
    },
 
+   "STAT_LOC": {
+      "none" : 0,
+      "timeTopLeft" : 1,
+      "timeTopRight" : 2,
+      "timeBottomLeft" : 3,
+      "timeBottomRight" : 4,
+      "bgTopLeft" : 5,
+      "bgTopRight" : 6,
+      "bgBottomLeft" : 7,
+      "bgBottomRight" : 8
+   },
+
    "RECENCY_LOC" : {
       "none" : 0,
       "graphTopLeft" : 1,
@@ -298,6 +316,13 @@
    "GRAPH_EXTRA_BASAL_BITS": 5,
 
    "SCREEN_WIDTH": 144,
+   "SCREEN_WIDTHS": {
+      "aplite": 144,
+      "basalt": 144,
+      "diorite": 144,
+      "chalk": 180,
+      "emery": 200
+   },
    "INTERVAL_SIZE_SECONDS" : 300,
    "REQUEST_TIMEOUT" : 5000,
 

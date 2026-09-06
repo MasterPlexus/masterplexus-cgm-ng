@@ -168,6 +168,10 @@ function app(Pebble, c) {
       updateEveryMinute: config.updateEveryMinute,
       timeAlign: c.ALIGN[getLayout(config).timeAlign],
       batteryLoc: c.BATTERY_LOC[getLayout(config).batteryLoc],
+      stepsLoc: c.STAT_LOC[config.stepsLoc] || 0,
+      pulseLoc: c.STAT_LOC[config.pulseLoc] || 0,
+      bgTextBlack: config.bgTextBlack,
+      bgAlign: c.ALIGN[config.bgAlign] || 1,
       connStatusLoc: c.CONN_STATUS_LOC[getLayout(config).connStatusLoc],
       recencyLoc: c.RECENCY_LOC[getLayout(config).recencyLoc],
       recencyStyle: c.RECENCY_STYLE[getLayout(config).recencyStyle],
@@ -200,6 +204,13 @@ function app(Pebble, c) {
         console.log('Bad config from localStorage: ' + configStr);
       }
     }
+
+    // The phone JS is shared by every watch platform, but the watchface must
+    // know the width of the display it is running on so it only requests as
+    // many glucose points as the graph can actually show. On the Pebble Time 2
+    // (emery) the display is 200 px wide; on Aplite/Basalt it is 144 px.
+    var activePlatform = Pebble.getActiveWatchInfo ? Pebble.getActiveWatchInfo().platform : undefined;
+    c.SCREEN_WIDTH = c.SCREEN_WIDTHS[activePlatform] || c.SCREEN_WIDTH;
 
     // can't initialize these until we know the graph config
     maxSGVs = computeMaxSGVs(config);
