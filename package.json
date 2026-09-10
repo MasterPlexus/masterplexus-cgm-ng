@@ -79,7 +79,14 @@
       "stepsLoc": 31,
       "pulseLoc": 32,
       "bgTextBlack": 33,
-      "bgAlign": 34
+      "bgAlign": 34,
+      "alarmActive": 35,
+      "alarmHigh": 36,
+      "alarmLow": 37,
+      "alarmTypeHigh": 38,
+      "alarmTypeLow": 39,
+      "alarmHighDuration": 40,
+      "alarmLowDuration": 41
     },
     "resources": {
       "media": [

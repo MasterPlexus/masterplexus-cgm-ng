@@ -5,7 +5,7 @@
 #define PERSIST_KEY_VERSION 0
 #define PERSIST_KEY_PREFERENCES_OBJECT 1
 
-#define PREFERENCES_SCHEMA_VERSION 19
+#define PREFERENCES_SCHEMA_VERSION 20
 
 enum {
   ALIGN_LEFT,
@@ -32,6 +32,15 @@ enum {
   STAT_LOC_BG_TOP_RIGHT,
   STAT_LOC_BG_BOTTOM_LEFT,
   STAT_LOC_BG_BOTTOM_RIGHT,
+};
+
+// Vibration patterns offered for the glucose alarms.
+enum {
+  VIBE_OFF,
+  VIBE_SHORT,
+  VIBE_DOUBLE,
+  VIBE_LONG,
+  VIBE_PULSE,
 };
 
 enum {
@@ -156,6 +165,13 @@ typedef struct __attribute__((__packed__)) Preferences {
   uint16_t status_max_age_minutes;
   unsigned int status_recency_format:3;
   bool include_seconds;
+  bool alarms_active;
+  uint16_t alarm_high;
+  uint16_t alarm_low;
+  unsigned int alarm_type_high:3;
+  unsigned int alarm_type_low:3;
+  uint8_t alarm_high_duration;
+  uint8_t alarm_low_duration;
 } Preferences;
 
 void init_prefs();

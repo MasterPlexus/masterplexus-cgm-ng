@@ -52,6 +52,13 @@
       "pulseLoc": "none",
       "bgTextBlack": false,
       "bgAlign": "center",
+      "alarmActive": false,
+      "alarmHigh": 180,
+      "alarmLow": 70,
+      "alarmTypeHigh": "short",
+      "alarmTypeLow": "short",
+      "alarmHighDuration": 4,
+      "alarmLowDuration": 4,
       "bolusTicks": false,
       "basalGraph": false,
       "basalHeight": 15,
@@ -267,6 +274,14 @@
       "bgTopRight" : 6,
       "bgBottomLeft" : 7,
       "bgBottomRight" : 8
+   },
+
+   "VIBRATION": {
+      "off" : 0,
+      "short" : 1,
+      "double" : 2,
+      "long" : 3,
+      "pulse" : 4
    },
 
    "RECENCY_LOC" : {

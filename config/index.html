@@ -22,6 +22,7 @@
         <li data-target="tab-layout"><a href="#">Layout</a></li>
         <li data-target="tab-graph"><a href="#">Graph</a></li>
         <li data-target="tab-data"><a href="#">Data</a></li>
+        <li data-target="tab-alarms"><a href="#">Alarms</a></li>
       </ul>
 
       <div class="tab active" id="tab-cgm">
@@ -716,6 +717,76 @@
       </div>
       <!-- end #tab-data -->
 
+      <div class="tab" id="tab-alarms">
+        <div class="item-container">
+          <h3>ALARMS:</h3>
+        </div>
+
+        <div class="item-container">
+          <div class="item-container-header">Alarms active</div>
+          <div class="item-container-content">
+            <label class="item">
+              Enable glucose alarms
+              <input name="alarmActive" id="alarmActive" type="checkbox" class="item-checkbox">
+            </label>
+          </div>
+        </div>
+
+        <div class="item-container">
+          <div class="item-container-header">Alarm thresholds (mg/dL)</div>
+          <div class="item-container-content">
+            <label class="item">
+              High value
+              <input name="alarmHigh" id="alarmHigh" type="tel" class="item-input" value="180">
+            </label>
+            <label class="item">
+              Low value
+              <input name="alarmLow" id="alarmLow" type="tel" class="item-input" value="70">
+            </label>
+          </div>
+        </div>
+
+        <div class="item-container">
+          <div class="item-container-header">High alarm vibration</div>
+          <div class="item-container-content">
+            <label class="item">
+              Type
+              <select name="alarmTypeHigh" id="alarmTypeHigh" dir="rtl" class="item-select">
+                <option value="off" class="item-select-option">Off</option>
+                <option value="short" class="item-select-option">Short</option>
+                <option value="double" class="item-select-option">Double</option>
+                <option value="long" class="item-select-option">Long</option>
+                <option value="pulse" class="item-select-option">Pulse</option>
+              </select>
+            </label>
+            <label class="item">
+              Duration (seconds)
+              <input name="alarmHighDuration" id="alarmHighDuration" type="tel" class="item-input" value="4">
+            </label>
+          </div>
+        </div>
+
+        <div class="item-container">
+          <div class="item-container-header">Low alarm vibration</div>
+          <div class="item-container-content">
+            <label class="item">
+              Type
+              <select name="alarmTypeLow" id="alarmTypeLow" dir="rtl" class="item-select">
+                <option value="off" class="item-select-option">Off</option>
+                <option value="short" class="item-select-option">Short</option>
+                <option value="double" class="item-select-option">Double</option>
+                <option value="long" class="item-select-option">Long</option>
+                <option value="pulse" class="item-select-option">Pulse</option>
+              </select>
+            </label>
+            <label class="item">
+              Duration (seconds)
+              <input name="alarmLowDuration" id="alarmLowDuration" type="tel" class="item-input" value="4">
+            </label>
+          </div>
+        </div>
+      </div>
+
       <div class="tab" id="tab-layout">
 
         <div class="item-container">
@@ -1100,6 +1171,7 @@
         <li data-target="tab-layout"><a href="#">Layout</a></li>
         <li data-target="tab-graph"><a href="#">Graph</a></li>
         <li data-target="tab-data"><a href="#">Data</a></li>
+        <li data-target="tab-alarms"><a href="#">Alarms</a></li>
       </ul>
 
       <div class="item-container save-button">

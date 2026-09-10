@@ -1,5 +1,6 @@
 #include <pebble.h>
 
+#include "alarm.h"
 #include "app_messages.h"
 #include "bg_row_element.h"
 #include "comm.h"
@@ -113,6 +114,8 @@ static Window *create_main_window() {
 static void data_callback(DataMessage *data) {
   staleness_on_data_received(data->recency);
 
+  alarm_update((int16_t)data->last_sgv);
+
   if (s_time_element != NULL) {
     time_element_update(s_time_element, data);
   }
@@ -132,6 +135,7 @@ static void data_callback(DataMessage *data) {
 
 static void prefs_callback(DictionaryIterator *received) {
   set_prefs(received);
+  alarm_prefs_changed();
   // recreate the window in case layout preferences have changed
   window_stack_remove(s_window, false);
   window_destroy(s_window);
@@ -151,6 +155,7 @@ static void request_state_callback(RequestState state, AppMessageResult reason) 
 
 static void init(void) {
   init_prefs();
+  alarm_init();
   init_staleness();
   s_window = create_main_window();
   init_comm(data_callback, prefs_callback, request_state_callback);
@@ -159,6 +164,7 @@ static void init(void) {
 static void deinit(void) {
   deinit_comm();
   window_destroy(s_window);
+  alarm_deinit();
   deinit_prefs();
 }
 

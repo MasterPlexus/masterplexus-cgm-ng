@@ -671,6 +671,13 @@
     $('[name=pulseLoc]').val(current['pulseLoc'] || 'none');
     $('[name=bgTextBlack]').prop('checked', !!current['bgTextBlack']);
     $('[name=bgAlign]').val(current['bgAlign'] || 'center');
+    $('[name=alarmActive]').prop('checked', !!current['alarmActive']);
+    $('#alarmHigh').val(current['alarmHigh'] !== undefined ? current['alarmHigh'] : 180);
+    $('#alarmLow').val(current['alarmLow'] !== undefined ? current['alarmLow'] : 70);
+    $('[name=alarmTypeHigh]').val(current['alarmTypeHigh'] || 'short');
+    $('[name=alarmTypeLow]').val(current['alarmTypeLow'] || 'short');
+    $('#alarmHighDuration').val(current['alarmHighDuration'] !== undefined ? current['alarmHighDuration'] : 4);
+    $('#alarmLowDuration').val(current['alarmLowDuration'] !== undefined ? current['alarmLowDuration'] : 4);
 
     $('[name=bolusTicks]').prop('checked', !!current['bolusTicks']);
     $('[name=basalGraph]').prop('checked', !!current['basalGraph']);
@@ -725,6 +732,13 @@
       pulseLoc: $('[name=pulseLoc]').val() || 'none',
       bgTextBlack: $('[name=bgTextBlack]').is(':checked'),
       bgAlign: $('[name=bgAlign]').val() || 'center',
+      alarmActive: $('[name=alarmActive]').is(':checked'),
+      alarmHigh: tryParseInt($('#alarmHigh').val(), 180),
+      alarmLow: tryParseInt($('#alarmLow').val(), 70),
+      alarmTypeHigh: $('[name=alarmTypeHigh]').val() || 'short',
+      alarmTypeLow: $('[name=alarmTypeLow]').val() || 'short',
+      alarmHighDuration: tryParseInt($('#alarmHighDuration').val(), 4),
+      alarmLowDuration: tryParseInt($('#alarmLowDuration').val(), 4),
       bolusTicks: $('[name=bolusTicks]').is(':checked'),
       basalGraph: $('[name=basalGraph]').is(':checked'),
       predictEnabled: $('[name=predictEnabled]').is(':checked'),

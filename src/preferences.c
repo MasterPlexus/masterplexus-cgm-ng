@@ -110,5 +110,13 @@ void set_prefs(DictionaryIterator *data) {
   decode_colors(s_prefs, dict_find(data, MESSAGE_KEY_colors)->value->data);
 
   s_prefs->include_seconds = get_int32(data, MESSAGE_KEY_includeSeconds);
+
+  s_prefs->alarms_active = get_int32(data, MESSAGE_KEY_alarmActive);
+  s_prefs->alarm_high = get_int32(data, MESSAGE_KEY_alarmHigh);
+  s_prefs->alarm_low = get_int32(data, MESSAGE_KEY_alarmLow);
+  s_prefs->alarm_type_high = get_int32(data, MESSAGE_KEY_alarmTypeHigh);
+  s_prefs->alarm_type_low = get_int32(data, MESSAGE_KEY_alarmTypeLow);
+  s_prefs->alarm_high_duration = get_int32(data, MESSAGE_KEY_alarmHighDuration);
+  s_prefs->alarm_low_duration = get_int32(data, MESSAGE_KEY_alarmLowDuration);
   save_prefs();
 }
